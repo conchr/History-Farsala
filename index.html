@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Φάρσαλοι: 7,000 Χρόνια Ιστορίας</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #2c5530;
+            --secondary: #4a7c59;
+            --accent: #8fbc8f;
+            --light: #f8f9fa;
+            --dark: #1a1a1a;
+            --timeline: #8b4513;
+            --bronze: #cd7f32;
+            --gold: #ffd700;
+            --papyrus: #f5e9d3;
+        }
+
+        body {
+            background: 
+                linear-gradient(rgba(245, 233, 211, 0.9), rgba(245, 233, 211, 0.9)),
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" opacity="0.1"><rect width="100%" height="100%" fill="%238b4513"/><path d="M0,0 L400,400 M400,0 L0,400" stroke="%235a3921" stroke-width="2"/></svg>'),
+                var(--papyrus);
+            color: var(--dark);
+            overflow-x: hidden;
+            position: relative;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .municipality-label {
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            font-size: 0.9rem;
+            color: var(--primary);
+            font-weight: bold;
+            z-index: 100;
+            background: rgba(245, 233, 211, 0.95);
+            padding: 5px 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border: 1px solid #d4c4a8;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            padding-top: 50px;
+            min-height: calc(100vh - 120px);
+        }
+
+        /* Slides */
+        .slides-container {
+            position: relative;
+            min-height: 70vh;
+        }
+
+        .slide {
+            display: none;
+            animation: fadeIn 0.8s ease forwards;
+            min-height: 70vh;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 2rem 0;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+            border: 2px solid #d4c4a8;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent) 0%, var(--gold) 100%);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .period-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        /* Timeline */
+        .timeline-container {
+            position: relative;
+            margin: 2rem 0;
+        }
+
+        .timeline {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .period {
+            flex: 1;
+            min-width: 180px;
+            max-width: 200px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            position: relative;
+            backdrop-filter: blur(10px);
+        }
+
+        .period:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .period.active {
+            border-color: var(--primary);
+            background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(240,248,240,0.95) 100%);
+        }
+
+        .period-year {
+            font-size: 0.85rem;
+            color: var(--primary);
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .period-title {
+            font-size: 1rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+            line-height: 1.3;
+        }
+
+        /* Main Content - No Scroll */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 1rem;
+            max-height: 50vh;
+            overflow: visible;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+                max-height: none;
+            }
+            
+            .period {
+                min-width: 150px;
+                padding: 1rem;
+            }
+            
+            .municipality-label {
+                position: relative;
+                top: 0;
+                left: 0;
+                text-align: center;
+                margin-bottom: 10px;
+            }
+            
+            .container {
+                padding-top: 20px;
+            }
+        }
+
+        .content-section {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 1px solid #d4c4a8;
+            backdrop-filter: blur(10px);
+            max-height: 100%;
+            overflow: visible;
+        }
+
+        .content-section h2 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            border-bottom: 3px solid var(--accent);
+            padding-bottom: 0.5rem;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .info-card {
+            background: rgba(248, 249, 250, 0.8);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--secondary);
+            transition: transform 0.3s ease;
+            border: 1px solid #e9dcc9;
+        }
+
+        .info-card:hover {
+            transform: translateX(5px);
+        }
+
+        .info-card h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Extended Info Sections */
+        .extended-info {
+            margin-top: 2rem;
+        }
+
+        .info-section {
+            background: linear-gradient(135deg, rgba(248,249,250,0.8) 0%, rgba(233,236,239,0.8) 100%);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--accent);
+            border: 1px solid #e9dcc9;
+        }
+
+        .info-section h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .info-section ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .info-section li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #dee2e6;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .info-section li:before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--secondary);
+            font-weight: bold;
+        }
+
+        .info-section li:last-child {
+            border-bottom: none;
+        }
+
+        /* Map and Images */
+        .visual-section {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 1px solid #d4c4a8;
+            backdrop-filter: blur(10px);
+            max-height: 100%;
+            overflow: visible;
+        }
+
+        .map-container {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #e8f4e8 0%, #d4edda 100%);
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--accent);
+            font-weight: bold;
+            color: var(--primary);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #d4c4a8;
+        }
+
+        .map-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.1"><path d="M20,20 L80,20 L80,80 L20,80 Z" fill="none" stroke="%232c5530" stroke-width="2"/></svg>');
+        }
+
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 0.8rem;
+            margin-top: 1rem;
+        }
+
+        .gallery-item {
+            height: 80px;
+            background: linear-gradient(135deg, #e8f4e8 0%, #d4edda 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--accent);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            color: var(--primary);
+            text-align: center;
+            padding: 5px;
+            position: relative;
+            overflow: hidden;
+            font-size: 0.8rem;
+            border: 1px solid #d4c4a8;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+            background: var(--accent);
+            color: white;
+        }
+
+        /* Footer Navigation */
+        .footer-navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 2rem;
+            padding: 1rem 0;
+            border-top: 2px solid #d4c4a8;
+            position: relative;
+        }
+
+        .nav-btn {
+            padding: 12px 25px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border: 1px solid #2c5530;
+        }
+
+        .nav-btn:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+        .nav-btn:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+            border: 1px solid #b3b3b3;
+        }
+
+        .home-btn {
+            padding: 12px 25px;
+            background: var(--accent);
+            color: var(--dark);
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border: 1px solid #8fbc8f;
+        }
+
+        .home-btn:hover {
+            background: #7ca87c;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            width: 100%;
+            height: 6px;
+            background: #e0e0e0;
+            border-radius: 3px;
+            margin: 2rem 0;
+            overflow: hidden;
+            border: 1px solid #d4c4a8;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        /* Slide Counter */
+        .slide-counter {
+            text-align: center;
+            color: var(--primary);
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+            background: rgba(245, 233, 211, 0.9);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            display: inline-block;
+            border: 1px solid #d4c4a8;
+        }
+
+        .counter-container {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        /* Introduction Slide */
+        .intro-slide {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .intro-slide h2 {
+            color: var(--primary);
+            margin-bottom: 2rem;
+            font-size: 2.2rem;
+        }
+
+        .intro-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            border-top: 4px solid var(--accent);
+            transition: transform 0.3s ease;
+            border: 1px solid #d4c4a8;
+            backdrop-filter: blur(10px);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-card h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        /* Quote Styling */
+        .historical-quote {
+            background: linear-gradient(135deg, rgba(255,243,205,0.8) 0%, rgba(255,234,167,0.8) 100%);
+            border-left: 4px solid var(--gold);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            font-style: italic;
+            position: relative;
+            border: 1px solid #e9dcc9;
+        }
+
+        .historical-quote::before {
+            content: '"';
+            font-size: 3rem;
+            color: var(--gold);
+            position: absolute;
+            top: 0;
+            left: 10px;
+            opacity: 0.3;
+        }
+
+        /* Modal for images */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 2.5rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-modal:hover {
+            color: var(--accent);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        /* Icon colors for different periods */
+        .icon-prehistoric { color: #8b4513; }
+        .icon-bronze { color: var(--bronze); }
+        .icon-mycenaean { color: #dc3545; }
+        .icon-archaic { color: #6f42c1; }
+        .icon-classical { color: #007bff; }
+        .icon-hellenistic { color: #e83e8c; }
+        .icon-roman { color: #fd7e14; }
+        .icon-byzantine { color: #6f42c1; }
+        .icon-ottoman { color: #20c997; }
+        .icon-modern { color: var(--primary); }
+
+        /* Page Layout Adjustments */
+        .page-content {
+            max-height: 55vh;
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+
+        .page-content::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .page-content::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 3px;
+        }
+
+        .page-content::-webkit-scrollbar-thumb {
+            background: var(--secondary);
+            border-radius: 3px;
+        }
+
+        .page-content::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+    </style>
+</head>
+<body>
+    <div class="municipality-label">ΔΗΜΟΣ ΦΑΡΣΑΛΩΝ 2025</div>
+    
+    <div class="container">
+        <!-- Slides Container -->
+        <div class="slides-container">
+            <!-- Εισαγωγική Σελίδα -->
+            <div class="slide active" id="slide-intro">
+                <div class="header">
+                    <h1>Φάρσαλοι: 7,000 Χρόνια Ιστορίας</h1>
+                    <p>Μια διαδραστική πολυμεσική παρουσίαση</p>
+                </div>
+                
+                <div class="intro-slide">
+                    <h2>Ανακαλύψτε την πλούσια ιστορία των Φαρσάλων</h2>
+                    
+                    <div class="intro-features">
+                        <div class="feature-card">
+                            <h3>🏛️ 9 Ιστορικές Περιόδους</h3>
+                            <p>Από τη Νεολιθική εποχή (6000 π.Χ.) έως τη σύγχρονη εποχή, ανακαλύψτε την εξέλιξη της περιοχής μέσα από τους αιώνες</p>
+                        </div>
+                        <div class="feature-card">
+                            <h3>🗺️ Χάρτες & Οπτικό Υλικό</h3>
+                            <p>Διαδραστικοί χάρτες, αρχαιολογικά ευρήματα και εικονογραφημένο υλικό που φωτίζουν κάθε περίοδο</p>
+                        </div>
+                        <div class="feature-card">
+                            <h3>📚 Πλούσιο Υλικό</h3>
+                            <p>Λεπτομερείς πληροφορίες, ενδιαφέροντα γεγονότα και πολιτισμικά στοιχεία για κάθε ιστορική εποχή</p>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 3rem;">
+                        <p style="font-size: 1.1rem; color: var(--primary); font-weight: bold;">
+                            Χρησιμοποιήστε τα βελάκια για πλοήγηση ή επιλέξτε απευθείας μια περίοδο από το timeline
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Οι υπόλοιπες σελίδες θα προστεθούν μέσω JavaScript -->
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="progress-container">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+
+        <!-- Slide Counter -->
+        <div class="counter-container">
+            <div class="slide-counter" id="slide-counter">Σελίδα 1 από 19</div>
+        </div>
+
+        <!-- Footer Navigation -->
+        <div class="footer-navigation">
+            <button class="nav-btn" id="prev-btn" disabled>
+                ← Προηγούμενη
+            </button>
+            
+            <button class="home-btn" id="home-btn">
+                🏛️ Κεντρική Σελίδα
+            </button>
+            
+            <button class="nav-btn" id="next-btn">
+                Επόμενη →
+            </button>
+        </div>
+    </div>
+
+    <!-- Image Modal -->
+    <div class="modal" id="imageModal">
+        <span class="close-modal" id="closeModal">&times;</span>
+        <img class="modal-content" id="modalImage" src="" alt="Εικόνα">
+    </div>
+
+    <script>
+        // Extended historical periods data with multiple pages per period
+        const historicalPeriods = [
+            {
+                id: 1,
+                title: "Νεολιθική Εποχή",
+                years: "6000-3200 π.Χ.",
+                icon: "⛰️",
+                iconClass: "icon-prehistoric",
+                pages: [
+                    {
+                        type: "overview",
+                        content: {
+                            description: "Η Νεολιθική εποχή σηματοδοτεί τη μετάβαση από τον νομαδικό τρόπο ζωής στη μόνιμη εγκατάσταση. Στην περιοχή των Φαρσάλων, οι πρώτοι γεωργές κοινότητες εγκαταστάθηκαν στους λόφους Πέτρα και Σούμπιλο, όπου βρήκαν εύφορη γη και προστασία.",
+                            facts: [
+                                { title: "🏠 Οικισμοί", content: "Πέτρα και Σούμπιλο σε στρατηγικούς λόφους με θέα στην πεδιάδα" },
+                                { title: "🌾 Οικονομία", content: "Γεωργία (σίτος, κριθάρι), κτηνοτροφία (πρόβατα, αγελάδες)" },
+                                { title: "👨‍👩‍👧‍👦 Κοινωνία", content: "Οργανωμένες οικογενειακές κοινότητες με απλή κοινωνική διάρθρωση" }
+                            ],
+                            map: "Νεολιθικοί Οικισμοί Θεσσαλίας",
+                            images: ["Νεολιθική Κεραμική", "Πήλινα Ειδώλια", "Οικιακά Αντικείμενα"]
+                        }
+                    },
+                    {
+                        type: "details",
+                        content: {
+                            interestingFacts: [
+                                "Ο οικισμός της Πέτρας ήταν ένας από τους σημαντικότερους νεολιθικούς οικισμούς της Θεσσαλίας",
+                                "Η κεραμική της εποχής διακοσμούνταν με γεωμετρικά σχέδια και φυσικά μοτίβα",
+                                "Οι κατοικίες ήταν τετράγωνες με πλίθινους τοίχους και ξύλινα δοκάρια"
+                            ],
+                            archaeologicalFinds: [
+                                "Πήλινα ειδώλια ανθρωπόμορφων και ζωόμορφων μορφών",
+                                "Λίθινα δρεπάνια και αξίνες για τη γεωργία",
+                                "Χειροποίητα αγγεία αποθήκευσης τροφίμων"
+                            ],
+                            culturalAspects: [
+                                "Πρώτες μορφές οργανωμένης θρησκείας με μητρικές θεότητες",
+                                "Ταφικές πρακτικές που υποδηλώνουν πεποίθηση για τη μετά θάνατον ζωή",
+                                "Απλές μορφές κοινωνικής οργάνωσης βασισμένες στην οικογένεια"
+                            ]
+                        }
+                    }
+                ]
+            },
+            {
+                id: 2,
+                title: "Εποχή του Χαλκού",
+                years: "3200-1100 π.Χ.",
+                icon: "⚒️",
+                iconClass: "icon-bronze",
+                pages: [
+                    {
+                        type: "overview",
+                        content: {
+                            description: "Η Εποχή του Χαλκού φέρνει ριζικές αλλαγές με την ανάπτυξη της μεταλλουργίας. Ο οικισμός της Πέτρας γίνεται σημαντικό εμπορικό κέντρο, διατηρώντας σχέσεις με τον Μινωικό πολιτισμό της Κρήτης.",
+                            facts: [
+                                { title: "🏙️ Αστική Ανάπτυξη", content: "Οικισμοί με λιθόστρωτους δρόμους και οργανωμένο αστικό σχεδιασμό" },
+                                { title: "🚢 Εμπόριο", content: "Εισαγωγή Μινωικής κεραμικής από Κρήτη - εκτεταμένα εμπορικά δικτύα" },
+                                { title: "👑 Κοινωνική Ιεραρχία", content: "Πλούσιες ταφές με χρυσά σκουλαρίκια και μεταλλικά αγγεία" }
+                            ],
+                            map: "Εποχή Χαλκού - Εμπορικά Δίκτυα",
+                            images: ["Χρυσά Σκουλαρίκια", "Μινωική Κεραμική", "Μεταλλικά Αγγεία"]
+                        }
+                    },
+                    {
+                        type: "details",
+                        content: {
+                            interestingFacts: [
+                                "Η Πέτρα ήταν ένα από τα πιο σημαντικά αστικά κέντρα της Εποχής του Χαλκού",
+                                "Οι ταφές περιλάμβαναν πολύτιμα αντικείμενα που υποδήλωναν την κοινωνική θέση",
+                                "Το εμπόριο με την Κρήτη έφερε νέες τεχνολογίες και πολιτισμικές επιρροές"
+                            ],
+                            archaeologicalFinds: [
+                                "Χρυσά σκουλαρίκια και κοσμήματα εξαιρετικής τεχνικής κατάρτισης",
+                                "Μινωική κεραμική και αγγεία εισαγωγής",
+                                "Μεταλλικά εργαλεία και όπλα από χαλκό"
+                            ],
+                            culturalAspects: [
+                                "Ανάπτυξη πιο πολύπλοκων θρησκευτικών πεποιθήσεων",
+                                "Εξειδίκευση στην παραγωγή αγαθών και εμπόριο",
+                                "Εμφάνιση αριστοκρατίας που ελέγχει τον πλούτο"
+                            ]
+                        }
+                    }
+                ]
+            },
+            {
+                id: 3,
+                title: "Μυκηναϊκή Περίοδος",
+                years: "1600-1100 π.Χ.",
+                icon: "⚔️",
+                iconClass: "icon-mycenaean",
+                pages: [
+                    {
+                        type: "overview",
+                        content: {
+                            description: "Στην Μυκηναϊκή περίοδο, οι Φάρσαλοι αναδεικνύονται σε σημαντικό πολιτισμικό και στρατιωτικό κέντρο. Η περιοχή ταυτίζεται με το βασίλειο των Μυρμιδόνων και τον ήρωα Αχιλλέα από την Ιλιάδα.",
+                            facts: [
+                                { title: "🏰 Ακρόπολη", content: "Ισχυρή οχύρωση με κυκλικό πύργο - χαρακτηριστικό των Μυκηναϊκών ακροπόλεων" },
+                                { title: "⚰️ Αριστοκρατία", content: "Θολωτοί τάφοι στην περιοχή Καζαμπεδί μαρτυρούν ισχυρή αριστοκρατία" },
+                                { title: "📖 Μυθολογία", content: "Πατρίδα του Αχιλλέα - βασίλειο των Μυρμιδόνων στην Ιλιάδα" }
+                            ],
+                            map: "Μυκηναϊκή Ακρόπολη Φαρσάλων",
+                            images: ["Κυκλικός Πύργος", "Θολωτός Τάφος", "Μυκηναϊκή Κεραμική"]
+                        }
+                    },
+                    {
+                        type: "details",
+                        content: {
+                            interestingFacts: [
+                                "Ο κυκλικός πύργος της ακρόπολης είναι χαρακτηριστικό αρχιτεκτονικό στοιχείο",
+                                "Η Ιλιάδα αναφέρει τους Φαρσαλιώτες ιππείς ως ανδράγαθους πολεμιστές",
+                                "Οι θολωτοί τάφοι μιμούνται την αρχιτεκτονική των βασιλικών τάφων των Μυκηνών"
+                            ],
+                            archaeologicalFinds: [
+                                "Κυκλικός πύργος και τείχη ακρόπολης",
+                                "Θολωτός τάφος στο Καζαμπεδί με πλούσια κτερίσματα",
+                                "Μυκηναϊκή κεραμική και εγχειρίδια"
+                            ],
+                            culturalAspects: [
+                                "Ιεραρχική κοινωνία με βασιλέα στην κορυφή",
+                                "Έντονη στρατιωτική παράδοση και ηρωική ιδεολογία",
+                                "Γραπτή γλώσσα (Γραμμική Β) για διοικητικούς σκοπούς"
+                            ]
+                        }
+                    }
+                ]
+            },
+            {
+                id: 4,
+                title: "Γεωμετρική & Αρχαϊκή",
+                years: "1100-500 π.Χ.",
+                icon: "🏺",
+                iconClass: "icon-archaic",
+                pages: [
+                    {
+                        type: "overview",
+                        content: {
+                            description: "Μετά την πτώση των Μυκηναίων, η περιοχή περνάει αναδιάρθρωση πριν αναδειχθεί ως σημαντικό μέλος του Θεσσαλικού Κοινού. Το ιερό της Αθηνάς Ιτωνίας γίνεται πανθεσσαλικό θρησκευτικό κέντρο.",
+                            facts: [
+                                { title: "🏛️ Πολιτική Οργάνωση", content: "Ισχυρό μέλος του Θεσσαλικού Κοινού - ομοσπονδίας πόλεων" },
+                                { title: "⛪ Θρησκευτικό Κέντρο", content: "Ιερό Αθηνάς Ιτωνίας στο Ιτώνιον - πανθεσσαλικό λατρευτικό κέντρο" },
+                                { title: "🌾 Οικονομία", content: "Σιτοβολώνας της Θεσσαλίας, εκτροφή αλόγων, ανάπτυξη εμπορίου" }
+                            ],
+                            map: "Θεσσαλική Συνομοσπονδία",
+                            images: ["Ιερό Ιτώνιον", "Γεωμετρική Κεραμική", "Θεσσαλικό Κοινό"]
+                        }
+                    },
+                    {
+                        type: "details",
+                        content: {
+                            interestingFacts: [
+                                "Το Θεσσαλικό Κοινό ήταν μια από τις πρώτες μορφές ομοσπονδιακής οργάνωσης",
+                                "Το Ιτώνιον φιλοξενούσε πανθεσσαλικές γιορτές και αγώνες",
+                                "Η Θεσσαλική ιππική συνέχιζε να είναι θρυλική σε όλη την Ελλάδα"
+                            ],
+                            archaeologicalFinds: [
+                                "Γεωμετρική και αρχαϊκή κεραμική από το ιερό του Ιτωνίου",
+                                "Αναθηματικές στήλες και αγάλματα",
+                                "Πρώτα νομίσματα του Θεσσαλικού Κοινού"
+                            ],
+                            culturalAspects: [
+                                "Ανάπτυξη της πόλης-κράτους ως πολιτικού οργανισμού",
+                                "Θρησκευτικές γιορτές που ενώνουν όλα τα θεσσαλικά φύλα",
+                                "Εξειδίκευση στην ποιητική και μουσική παράδοση"
+                            ]
+                        }
+                    }
+                ]
+            },
+            {
+                id: 5,
+                title: "Κλασική Εποχή",
+                years: "500-336 π.Χ.",
+                icon: "🏛️",
+                iconClass: "icon-classical",
+                pages: [
+                    {
+                        type: "overview",
+                        content: {
+                            description: "Στην Κλασική εποχή, οι Φάρσαλοι βρίσκονται στο επίκεντρο πολιτικών συγκρούσεων μεταξύ Αθήνας και Σπάρτης. Παρά τις εξωτερικές πιέσεις, η πόλη γνώρισε οικονομική ακμή με βάση τη γεωργία και την παραγωγή κεραμικής.",
+                            facts: [
+                                { title: "🤝 Πολιτικές Συμμαχίες", content: "Σύγκρουση Αθήνας-Σπάρτης - επίκεντρο Μακεδονικών συγκρούσεων" },
+                                { title: "⚖️ Εσωτερικές Διαιρέσεις", content: "Δημοκρατικοί vs Αριστοκράτες - συνεχείς εσωτερικές αναταραχές" },
+                                { title: "💰 Οικονομία", content: "Σιτηρά, άλογα, κεραμική, ιδιόκοπτα νομίσματα" }
+                            ],
+                            map: "Κλασικοί Φάρσαλοι - Πολιτικές Συμμαχίες",
+                            images: ["Νόμισμα Φαρσάλων", "Θεσσαλικός Ιππέας", "Κλασική Κεραμική"]
+                        }
+                    },
+                    {
+                        type: "details",
+                        content: {
+                            interestingFacts: [
+                                "Οι Φάρσαλοι έκοβαν δικό τους νόμισμα, σημάδι οικονομικής ανεξαρτησίας",
+                                "Η πόλη ήταν θέατρο συχνών επεμβάσεων από Αθηναίους και Σπαρτιάτες",
+                                "Ο Αρμονίος, δημοκρατικός ηγέτης, πήρε τον έλεγχο της πόλης γύρω στο 400 π.Χ."
+                            ],
+                            archaeologicalFinds: [
+                                "Αργυρά νομίσματα με απεικονίσεις Αθηνάς και αλόγων",
+                                "Κεραμική από τοπικά εργαστήρια",
+                                "Επιγραφές που μαρτυρούν πολιτικές συμμαχίες"
+                            ],
+                            culturalAspects: [
+                                "Πολιτισμική ακμή παρά τις πολιτικές αναταραχές",
+                                "Συνέχιση της ιππικής παράδοσης και των αθλητικών αγώνων",
+                                "Οικοδόμηση δημόσιων κτηρίων και βελτίωση αστικού περιβάλλοντος"
+                            ]
+                        }
+                    }
+                ]
+            },
+            {
+                id: 6,
+                title: "Ελληνιστική & Ρωμαϊκή",
+                years: "336 π.Χ.-330 μ.Χ.",
+                icon: "🏺",
+                iconClass: "icon-hellenistic",
+                pages: [
+                    {
+                        type: "overview",
+                        content: {
+                            description: "Η περίοδος αυτή σημαδεύτηκε από τη σημαντική Μάχη των Φαρσάλων το 48 π.Χ., όπου ο Ιούλιος Καίσαρας νίκησε τον Πομπήιο. Οι Φάρσαλοι ενσωματώθηκαν στη Ρωμαϊκή Αυτοκρατορία, διατηρώντας τον ελληνικό πολιτισμικό χαρακτήρα.",
+                            facts: [
+                                { title: "⚔️ Μάχη Φαρσάλων", content: "48 π.Χ. - Νίκη Ιουλίου Καίσαρα επί Πομπήιου, γεγονός που άλλαξε τη ρωμαϊκή ιστορία" },
+                                { title: "🏗️ Αστική Ανάπτυξη", content: "Θέατρο, Λουτρά, Δημόσια Κτήρια - ρωμαϊκή αρχιτεκτονική" },
+                                { title: "🌍 Οικονομία", content: "Ενσωμάτωση σε ρωμαϊκό εμπορικό δίκτυο, εξαγωγή αγροτικών προϊόντων" }
+                            ],
+                            map: "Ρωμαϊκή Θεσσαλία - Μάχη Φαρσάλων",
+                            images: ["Ρωμαϊκό Θέατρο", "Μάχη Φαρσάλων", "Ρωμαϊκά Λουτρά"]
+                        }
+                    },
+                    {
+                        type: "details",
+                        content: {
+                            interestingFacts: [
+                                "Η Μάχη των Φαρσάλων ήταν μια από τις πιο καθοριστικές μάχες των Ρωμαϊκών εμφυλίων πολέμων",
+                                "Ο Καίσαρας χρησιμοποίησε τα στρατηγικά πλεονεκτήματα της περιοχής για τη νίκη του",
+                                "Η πόλη διατήρησε ελληνικό χαρακτήρα παρά τη ρωμαϊκή κυριαρχία"
+                            ],
+                            archaeologicalFinds: [
+                                "Ρωμαϊκό θέατρο στις πλαγιές της ακρόπολης",
+                                "Λουτρά και δημόσια κτήρια ρωμαϊκής περιόδου",
+                                "Επιγραφές στα ελληνικά και λατινικά"
+                            ],
+                            culturalAspects: [
+                                "Συνύπαρξη ελληνικών και ρωμαϊκών πολιτισμικών στοιχείων",
+                                "Διοικητική αυτονομία υπό τη ρωμαϊκή επικυριαρχία",
+                                "Συνεχιζόμενη θρησκευτική ζωή στα ελληνικά ιερά"
+                            ]
+                        }
+                    }
+                ]
+            },
+            {
+                id: 7,
+                title: "Βυζαντινή Περίοδος",
+                years: "330-1393 μ.Χ.",
+                icon: "⛪",
+                iconClass: "icon-byzantine",
+                pages: [
+                    {
+                        type: "overview",
+                        content: {
+                            description: "Στη Βυζαντινή περίοδο, οι Φάρσαλοι αποτέλεσαν σημαντική επισκοπική έδρα και θρησκευτικό κέντρο. Χτίστηκαν μεγαλοπρεπείς παλαιοχριστιανικές βασιλικές, ενώ η πόλη οχυρώθηκε ενάντια στις συνεχείς απειλές.",
+                            facts: [
+                                { title: "✝️ Εκκλησιαστική Οργάνωση", content: "Επισκοπή Φαρσάλων - σημαντικό θρησκευτικό κέντρο της περιοχής" },
+                                { title: "🏛️ Αρχιτεκτονική", content: "Παλαιοχριστιανικές βασιλικές με ψηφιδωτά και μαρμάρινη διακόσμηση" },
+                                { title: "🛡️ Οχυρώσεις", content: "Ενίσχυση τειχών για προστασία από εισβολείς - ανακατασκευή ακρόπολης" }
+                            ],
+                            map: "Βυζαντινοί Φάρσαλοι - Επισκοπική Έδρα",
+                            images: ["Βασιλική Αγ. Αθανασίου", "Βυζαντινά Ψηφιδωτά", "Βυζαντινός Οικισμός"]
+                        }
+                    },
+                    {
+                        type: "details",
+                        content: {
+                            interestingFacts: [
+                                "Η Βασιλική του Αγίου Αθανασίου ήταν μια από τις μεγαλύτερες στη Θεσσαλία",
+                                "Οι Φάρσαλοι συμμετείχαν στις Οικουμενικές Συνόδους της Χριστιανικής Εκκλησίας",
+                                "Η πόλη αντιστάθηκε σε πολλές πολιορκίες χάρη στα ισχυρά της τείχη"
+                            ],
+                            archaeologicalFinds: [
+                                "Βασιλική Αγίου Αθανασίου με ψηφιδωτά δάπεδα",
+                                "Βυζαντινά τείχη και πύργους οχύρωσης",
+                                "Λειψανοθήκες και θρησκευτικά αντικείμενα"
+                            ],
+                            culturalAspects: [
+                                "Εξέλιξη του Χριστιανισμού ως κυρίαρχης θρησκείας",
+                                "Συνέχιση της ελληνικής γλώσσας και παράδοσης",
+                                "Ανάπτυξη μοναστικών κέντρων στην ύπαιθρο"
+                            ]
+                        }
+                    }
+                ]
+            },
+            {
+                id: 8,
+                title: "Τουρκοκρατία",
+                years: "1393-1881",
+                icon: "🕌",
+                iconClass: "icon-ottoman",
+                pages: [
+                    {
+                        type: "overview",
+                        content: {
+                            description: "Κατά την Τουρκοκρατία, οι Φάρσαλοι υπέστησαν σημαντικές αλλαγές στην κοινωνική και οικονομική δομή. Η γη οργανώθηκε σε τσιφλίκια, με τους ντόπιους αγρότες να εργάζονται ως δουλοπάροικοι.",
+                            facts: [
+                                { title: "🏘️ Οικονομική Δομή", content: "Τσιфλίκια με δουλοπάροικους - μεγάλες γαιοκτησίες υπό Τούρκων αγάδων" },
+                                { title: "💰 Φορολογία", content: "Δεκάτη, χαράτσι, βαρείς φόροι - οικονομική καταπίεση του πληθυσμού" },
+                                { title: "⚔️ Αντίσταση", content: "Κλέφτες, Αρματολοί, Κρυφό Σχολειό - μορφές οργανωμένης αντίστασης" }
+                            ],
+                            map: "Οθωμανική Θεσσαλία - Διοικητική Δομή",
+                            images: ["Οθωμανικό Κάστρο", "Τσιφλίκι", "Κλέφτες Αρματολοί"]
+                        }
+                    },
+                    {
+                        type: "details",
+                        content: {
+                            interestingFacts: [
+                                "Οι Φάρσαλοι ήταν διοικητικό κέντρο (κάζα) του σαντζακίου της Τρίκκης",
+                                "Πολλοί τοπικοί προκρίτες συνεργάστηκαν με τις οθωμανικές αρχές",
+                                "Η περιοχή του Οθρυός ήταν κλασικό πεδίο δράσης των κλεφτών"
+                            ],
+                            archaeologicalFinds: [
+                                "Οθωμανικό κάστρο στην ακρόπολη",
+                                "Τζαμί και χαμάμ στο κέντρο της πόλης",
+                                "Επιγραφές σε τουρκικά και ελληνικά"
+                            ],
+                            culturalAspects: [
+                                "Διπλός πολιτισμός - συνύπαρξη ελληνικών και οθωμανικών στοιχείων",
+                                "Διατήρηση της ορθόδοξης πίστης ως πυρήνα εθνικής ταυτότητας",
+                                "Ανάπτυξη του κλεφτοπολεμού ως μορφής αντίστασης"
+                            ]
+                        }
+                    }
+                ]
+            },
+            {
+                id: 9,
+                title: "Σύγχρονη Εποχή",
+                years: "1881-Σήμερα",
+                icon: "🏙️",
+                iconClass: "icon-modern",
+                pages: [
+                    {
+                        type: "overview",
+                        content: {
+                            description: "Η απελευθέρωση των Φαρσάλων το 1881 σηματοδοτεί την έναρξη της σύγχρονης περιόδου. Η πόλη αναπτύχθηκε ταχύτατα, απορροφώντας πρόσφυγες και αναπτύσσοντας νέες οικονομικές δραστηριότητες.",
+                            facts: [
+                                { title: "🎉 Απελευθέρωση", content: "1881 - Ένταξη στην Ελλάδα μετά τη Σύμβαση της Κωνσταντινούπολης" },
+                                { title: "👥 Πληθυσμός", content: "Από 3,000 (1881) σε 9,500 (2021) - σταθερή ανάπτυξη με προσφυγικές εγκαταστάσεις" },
+                                { title: "🏭 Οικονομία", content: "Σύγχρονη γεωργία, βιομηχανία, τουρισμός - διαφοροποίηση δραστηριοτήτων" }
+                            ],
+                            map: "Σύγχρονος Δήμος Φαρσάλων",
+                            images: ["Σύγχρονοι Φάρσαλοι", "Μουσείο Φαρσάλων", "Πολιτιστικές Εκδηλώσεις"]
+                        }
+                    },
+                    {
+                        type: "details",
+                        content: {
+                            interestingFacts: [
+                                "Οι Φάρσαλοι ήταν από τις πρώτες περιοχές της Θεσσαλίας που ενσωματώθηκαν στο ελληνικό κράτος",
+                                "Το Μουσείο Φαρσάλων ιδρύθηκε για να προστατεύσει και να προβάλλει την πλούσια ιστορία",
+                                "Η πόλη δέχτηκε σημαντικό αριθμό προσφύγων μετά τη Μικρασιατική Καταστροφή"
+                            ],
+                            archaeologicalFinds: [
+                                "Σύγχρονο Μουσείο Φαρσάλων με πλούσια συλλογή",
+                                "Αναστηλωμένοι αρχαιολογικοί χώροι",
+                                "Ψηφιακά αρχεία και διαδραστικές εγκαταστάσεις"
+                            ],
+                            culturalAspects: [
+                                "Συνδυασμός παραδοσιακού και σύγχρονου πολιτισμού",
+                                "Ενεργός πολιτιστική ζωή με φεστιβάλ και εκδηλώσεις",
+                                "Προστασία και ανάδειξη της πολιτιστικής κληρονομιάς"
+                            ]
+                        }
+                    }
+                ]
+            }
+        ];
+
+        // Current slide index
+        let currentSlideIndex = 0;
+        let totalSlides = 1; // Αρχικά μόνο η εισαγωγική
+
+        // Initialize the application
+        function init() {
+            createPeriodSlides();
+            setupEventListeners();
+            updateNavigation();
+            updateProgressBar();
+            updateSlideCounter();
+        }
+
+        // Create slides for each historical period
+        function createPeriodSlides() {
+            const slidesContainer = document.querySelector('.slides-container');
+            let slideCount = 1; // Η εισαγωγική είναι ήδη 1
+
+            historicalPeriods.forEach((period, periodIndex) => {
+                period.pages.forEach((page, pageIndex) => {
+                    const slide = document.createElement('div');
+                    slide.className = 'slide';
+                    slide.id = `slide-${period.id}-${pageIndex}`;
+                    
+                    let slideContent = '';
+                    
+                    if (page.type === "overview") {
+                        slideContent = `
+                            <div class="header">
+                                <span class="period-icon ${period.iconClass}">${period.icon}</span>
+                                <h1>${period.title}</h1>
+                                <p>${period.years}</p>
+                            </div>
+                            
+                            <div class="timeline-container">
+                                <div class="timeline" id="timeline">
+                                    ${historicalPeriods.map((p, i) => `
+                                        <div class="period ${i === periodIndex ? 'active' : ''}" data-period="${i}" data-page="0">
+                                            <div class="period-year">${p.years}</div>
+                                            <div class="period-title">${p.title}</div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+
+                            <div class="main-content">
+                                <div class="content-section">
+                                    <h2>Βασικά Χαρακτηριστικά</h2>
+                                    <div class="page-content">
+                                        <div class="info-grid">
+                                            <div class="info-card" style="grid-column: 1 / -1;">
+                                                <h3>📖 Περιγραφή</h3>
+                                                <p>${page.content.description}</p>
+                                            </div>
+                                            ${page.content.facts.map(fact => `
+                                                <div class="info-card">
+                                                    <h3>${fact.title}</h3>
+                                                    <p>${fact.content}</p>
+                                                </div>
+                                            `).join('')}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="visual-section">
+                                    <h2>🗺️ Χάρτες & Εικόνες</h2>
+                                    <div class="map-container">
+                                        ${page.content.map}
+                                    </div>
+                                    <div class="image-gallery">
+                                        ${page.content.images.map(image => `
+                                            <div class="gallery-item">
+                                                ${image}
+                                            </div>
+                                        `).join('')}
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    } else {
+                        slideContent = `
+                            <div class="header">
+                                <span class="period-icon ${period.iconClass}">${period.icon}</span>
+                                <h1>${period.title} - Λεπτομέρειες</h1>
+                                <p>${period.years}</p>
+                            </div>
+                            
+                            <div class="timeline-container">
+                                <div class="timeline" id="timeline">
+                                    ${historicalPeriods.map((p, i) => `
+                                        <div class="period ${i === periodIndex ? 'active' : ''}" data-period="${i}" data-page="0">
+                                            <div class="period-year">${p.years}</div>
+                                            <div class="period-title">${p.title}</div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+
+                            <div class="main-content">
+                                <div class="content-section">
+                                    <h2>Περισσότερες Πληροφορίες</h2>
+                                    <div class="page-content">
+                                        <div class="info-section">
+                                            <h3>💡 Ενδιαφέροντα Γεγονότα</h3>
+                                            <ul>
+                                                ${page.content.interestingFacts.map(fact => `<li>${fact}</li>`).join('')}
+                                            </ul>
+                                        </div>
+
+                                        <div class="info-section">
+                                            <h3>🏺 Αρχαιολογικά Ευρήματα</h3>
+                                            <ul>
+                                                ${page.content.archaeologicalFinds.map(item => `<li>${item}</li>`).join('')}
+                                            </ul>
+                                        </div>
+
+                                        <div class="info-section">
+                                            <h3>🎭 Πολιτισμικά Στοιχεία</h3>
+                                            <ul>
+                                                ${page.content.culturalAspects.map(aspect => `<li>${aspect}</li>`).join('')}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="visual-section">
+                                    <h2>Συμπληρωματικό Υλικό</h2>
+                                    <div class="map-container">
+                                        Επιπλέον Χαρτογραφήσεις
+                                    </div>
+                                    <div style="text-align: center; padding: 1rem;">
+                                        <p>Η σελίδα αυτή παρέχει επιπλέον λεπτομέρειες για την ${period.title}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    }
+                    
+                    slide.innerHTML = slideContent;
+                    slidesContainer.appendChild(slide);
+                    slideCount++;
+                });
+            });
+
+            totalSlides = slideCount;
+            updateSlideCounter();
+        }
+
+        // Show specific slide
+        function showSlide(index) {
+            // Hide all slides
+            document.querySelectorAll('.slide').forEach(slide => {
+                slide.classList.remove('active');
+            });
+            
+            // Show target slide
+            document.querySelectorAll('.slide')[index].classList.add('active');
+            
+            currentSlideIndex = index;
+            updateNavigation();
+            updateProgressBar();
+            updateSlideCounter();
+
+            // Scroll to top when changing slides
+            window.scrollTo(0, 0);
+        }
+
+        // Update navigation buttons state
+        function updateNavigation() {
+            document.getElementById('prev-btn').disabled = currentSlideIndex === 0;
+            document.getElementById('next-btn').disabled = currentSlideIndex === totalSlides - 1;
+        }
+
+        // Update progress bar
+        function updateProgressBar() {
+            const progress = ((currentSlideIndex + 1) / totalSlides) * 100;
+            document.getElementById('progress-bar').style.width = `${progress}%`;
+        }
+
+        // Update slide counter
+        function updateSlideCounter() {
+            document.getElementById('slide-counter').textContent = 
+                `Σελίδα ${currentSlideIndex + 1} από ${totalSlides}`;
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Navigation buttons
+            document.getElementById('prev-btn').addEventListener('click', () => {
+                if (currentSlideIndex > 0) {
+                    showSlide(currentSlideIndex - 1);
+                }
+            });
+
+            document.getElementById('next-btn').addEventListener('click', () => {
+                if (currentSlideIndex < totalSlides - 1) {
+                    showSlide(currentSlideIndex + 1);
+                }
+            });
+
+            // Home button
+            document.getElementById('home-btn').addEventListener('click', () => {
+                showSlide(0);
+            });
+
+            // Timeline period clicks
+            document.addEventListener('click', (e) => {
+                if (e.target.closest('.period')) {
+                    const periodIndex = parseInt(e.target.closest('.period').dataset.period);
+                    // Calculate the slide index for the first page of this period
+                    // Each period has 2 pages + 1 for intro
+                    const slideIndex = 1 + (periodIndex * 2);
+                    showSlide(slideIndex);
+                }
+            });
+
+            // Modal functionality
+            document.getElementById('closeModal').addEventListener('click', closeModal);
+            document.getElementById('imageModal').addEventListener('click', (e) => {
+                if (e.target.id === 'imageModal') closeModal();
+            });
+
+            // Keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowLeft' && currentSlideIndex > 0) {
+                    showSlide(currentSlideIndex - 1);
+                } else if (e.key === 'ArrowRight' && currentSlideIndex < totalSlides - 1) {
+                    showSlide(currentSlideIndex + 1);
+                } else if (e.key === 'Escape') {
+                    closeModal();
+                } else if (e.key === 'Home') {
+                    showSlide(0);
+                }
+            });
+        }
+
+        // Modal functions
+        function openModal(imageName) {
+            document.getElementById('modalImage').alt = imageName;
+            document.getElementById('imageModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('imageModal').style.display = 'none';
+        }
+
+        // Initialize the app
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
