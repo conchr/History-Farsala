@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Φάρσαλοι: 7,000 Χρόνια Ιστορίας</title>
+    <title>Φάρσαλα: 7,000 Χρόνια Ιστορίας</title>
     <style>
         * {
             margin: 0;
@@ -110,89 +110,14 @@
             opacity: 0.9;
         }
 
-        .period-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            display: block;
-        }
-
-        /* Timeline */
-        .timeline-container {
-            position: relative;
-            margin: 2rem 0;
-        }
-
-        .timeline {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            justify-content: center;
-            margin-bottom: 2rem;
-        }
-
-        .period {
-            flex: 1;
-            min-width: 180px;
-            max-width: 200px;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 10px;
-            padding: 1.2rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            text-align: center;
-            position: relative;
-            backdrop-filter: blur(10px);
-        }
-
-        .period:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-        }
-
-        .period.active {
-            border-color: var(--primary);
-            background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(240,248,240,0.95) 100%);
-        }
-
-        .period-year {
-            font-size: 0.85rem;
-            color: var(--primary);
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-        }
-
-        .period-title {
-            font-size: 1rem;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-            color: var(--dark);
-            line-height: 1.3;
-        }
-
         /* Main Content - No Scroll */
         .main-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
+            display: block;
             margin-top: 1rem;
-            max-height: 50vh;
             overflow: visible;
         }
 
         @media (max-width: 768px) {
-            .main-content {
-                grid-template-columns: 1fr;
-                max-height: none;
-            }
-            
-            .period {
-                min-width: 150px;
-                padding: 1rem;
-            }
-            
             .municipality-label {
                 position: relative;
                 top: 0;
@@ -213,7 +138,6 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             border: 1px solid #d4c4a8;
             backdrop-filter: blur(10px);
-            max-height: 100%;
             overflow: visible;
         }
 
@@ -248,9 +172,6 @@
             color: var(--primary);
             margin-bottom: 0.5rem;
             font-size: 1.1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
         }
 
         /* Extended Info Sections */
@@ -270,9 +191,6 @@
         .info-section h3 {
             color: var(--primary);
             margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
         }
 
         .info-section ul {
@@ -297,78 +215,6 @@
 
         .info-section li:last-child {
             border-bottom: none;
-        }
-
-        /* Map and Images */
-        .visual-section {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 15px;
-            padding: 2rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            border: 1px solid #d4c4a8;
-            backdrop-filter: blur(10px);
-            max-height: 100%;
-            overflow: visible;
-        }
-
-        .map-container {
-            width: 100%;
-            height: 200px;
-            background: linear-gradient(135deg, #e8f4e8 0%, #d4edda 100%);
-            border-radius: 10px;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 2px solid var(--accent);
-            font-weight: bold;
-            color: var(--primary);
-            position: relative;
-            overflow: hidden;
-            border: 1px solid #d4c4a8;
-        }
-
-        .map-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.1"><path d="M20,20 L80,20 L80,80 L20,80 Z" fill="none" stroke="%232c5530" stroke-width="2"/></svg>');
-        }
-
-        .image-gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 0.8rem;
-            margin-top: 1rem;
-        }
-
-        .gallery-item {
-            height: 80px;
-            background: linear-gradient(135deg, #e8f4e8 0%, #d4edda 100%);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 2px solid var(--accent);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: bold;
-            color: var(--primary);
-            text-align: center;
-            padding: 5px;
-            position: relative;
-            overflow: hidden;
-            font-size: 0.8rem;
-            border: 1px solid #d4c4a8;
-        }
-
-        .gallery-item:hover {
-            transform: scale(1.05);
-            background: var(--accent);
-            color: white;
         }
 
         /* Footer Navigation */
@@ -481,54 +327,42 @@
             font-size: 2.2rem;
         }
 
-        .intro-features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
+        /* Thank You Slide */
+        .thank-you-slide {
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+
+        .thank-you-slide h2 {
+            color: var(--primary);
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+        }
+
+        .thank-you-slide p {
+            font-size: 1.3rem;
+            margin-bottom: 3rem;
+            color: var(--dark);
+        }
+
+        .restart-btn {
+            padding: 15px 40px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+            font-weight: bold;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
             margin-top: 2rem;
         }
 
-        .feature-card {
-            background: rgba(255, 255, 255, 0.9);
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            border-top: 4px solid var(--accent);
-            transition: transform 0.3s ease;
-            border: 1px solid #d4c4a8;
-            backdrop-filter: blur(10px);
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .feature-card h3 {
-            color: var(--primary);
-            margin-bottom: 1rem;
-            font-size: 1.3rem;
-        }
-
-        /* Quote Styling */
-        .historical-quote {
-            background: linear-gradient(135deg, rgba(255,243,205,0.8) 0%, rgba(255,234,167,0.8) 100%);
-            border-left: 4px solid var(--gold);
-            padding: 1.5rem;
-            margin: 1.5rem 0;
-            border-radius: 8px;
-            font-style: italic;
-            position: relative;
-            border: 1px solid #e9dcc9;
-        }
-
-        .historical-quote::before {
-            content: '"';
-            font-size: 3rem;
-            color: var(--gold);
-            position: absolute;
-            top: 0;
-            left: 10px;
-            opacity: 0.3;
+        .restart-btn:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
         }
 
         /* Modal for images */
@@ -576,41 +410,9 @@
             animation: fadeIn 0.5s ease forwards;
         }
 
-        /* Icon colors for different periods */
-        .icon-prehistoric { color: #8b4513; }
-        .icon-bronze { color: var(--bronze); }
-        .icon-mycenaean { color: #dc3545; }
-        .icon-archaic { color: #6f42c1; }
-        .icon-classical { color: #007bff; }
-        .icon-hellenistic { color: #e83e8c; }
-        .icon-roman { color: #fd7e14; }
-        .icon-byzantine { color: #6f42c1; }
-        .icon-ottoman { color: #20c997; }
-        .icon-modern { color: var(--primary); }
-
         /* Page Layout Adjustments */
         .page-content {
-            max-height: 55vh;
-            overflow-y: auto;
             padding-right: 5px;
-        }
-
-        .page-content::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .page-content::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 3px;
-        }
-
-        .page-content::-webkit-scrollbar-thumb {
-            background: var(--secondary);
-            border-radius: 3px;
-        }
-
-        .page-content::-webkit-scrollbar-thumb:hover {
-            background: var(--primary);
         }
     </style>
 </head>
@@ -623,31 +425,16 @@
             <!-- Εισαγωγική Σελίδα -->
             <div class="slide active" id="slide-intro">
                 <div class="header">
-                    <h1>Φάρσαλοι: 7,000 Χρόνια Ιστορίας</h1>
+                    <h1>Φάρσαλα: 7,000 Χρόνια Ιστορίας</h1>
                     <p>Μια διαδραστική πολυμεσική παρουσίαση</p>
                 </div>
                 
                 <div class="intro-slide">
                     <h2>Ανακαλύψτε την πλούσια ιστορία των Φαρσάλων</h2>
                     
-                    <div class="intro-features">
-                        <div class="feature-card">
-                            <h3>🏛️ 9 Ιστορικές Περιόδους</h3>
-                            <p>Από τη Νεολιθική εποχή (6000 π.Χ.) έως τη σύγχρονη εποχή, ανακαλύψτε την εξέλιξη της περιοχής μέσα από τους αιώνες</p>
-                        </div>
-                        <div class="feature-card">
-                            <h3>🗺️ Χάρτες & Οπτικό Υλικό</h3>
-                            <p>Διαδραστικοί χάρτες, αρχαιολογικά ευρήματα και εικονογραφημένο υλικό που φωτίζουν κάθε περίοδο</p>
-                        </div>
-                        <div class="feature-card">
-                            <h3>📚 Πλούσιο Υλικό</h3>
-                            <p>Λεπτομερείς πληροφορίες, ενδιαφέροντα γεγονότα και πολιτισμικά στοιχεία για κάθε ιστορική εποχή</p>
-                        </div>
-                    </div>
-
                     <div style="margin-top: 3rem;">
                         <p style="font-size: 1.1rem; color: var(--primary); font-weight: bold;">
-                            Χρησιμοποιήστε τα βελάκια για πλοήγηση ή επιλέξτε απευθείας μια περίοδο από το timeline
+                            Χρησιμοποιήστε τα βελάκια για πλοήγηση
                         </p>
                     </div>
                 </div>
@@ -663,7 +450,7 @@
 
         <!-- Slide Counter -->
         <div class="counter-container">
-            <div class="slide-counter" id="slide-counter">Σελίδα 1 από 19</div>
+            <div class="slide-counter" id="slide-counter">Σελίδα 1 από 20</div>
         </div>
 
         <!-- Footer Navigation -->
@@ -673,7 +460,7 @@
             </button>
             
             <button class="home-btn" id="home-btn">
-                🏛️ Κεντρική Σελίδα
+                Κεντρική Σελίδα
             </button>
             
             <button class="nav-btn" id="next-btn">
@@ -695,20 +482,19 @@
                 id: 1,
                 title: "Νεολιθική Εποχή",
                 years: "6000-3200 π.Χ.",
-                icon: "⛰️",
-                iconClass: "icon-prehistoric",
                 pages: [
                     {
                         type: "overview",
                         content: {
                             description: "Η Νεολιθική εποχή σηματοδοτεί τη μετάβαση από τον νομαδικό τρόπο ζωής στη μόνιμη εγκατάσταση. Στην περιοχή των Φαρσάλων, οι πρώτοι γεωργές κοινότητες εγκαταστάθηκαν στους λόφους Πέτρα και Σούμπιλο, όπου βρήκαν εύφορη γη και προστασία.",
                             facts: [
-                                { title: "🏠 Οικισμοί", content: "Πέτρα και Σούμπιλο σε στρατηγικούς λόφους με θέα στην πεδιάδα" },
-                                { title: "🌾 Οικονομία", content: "Γεωργία (σίτος, κριθάρι), κτηνοτροφία (πρόβατα, αγελάδες)" },
-                                { title: "👨‍👩‍👧‍👦 Κοινωνία", content: "Οργανωμένες οικογενειακές κοινότητες με απλή κοινωνική διάρθρωση" }
-                            ],
-                            map: "Νεολιθικοί Οικισμοί Θεσσαλίας",
-                            images: ["Νεολιθική Κεραμική", "Πήλινα Ειδώλια", "Οικιακά Αντικείμενα"]
+                                { 
+                                    title: "Οικισμοί", 
+                                    content: "Πέτρα και Σούμπιλο σε στρατηγικούς λόφους με θέα στην πεδιάδα. Η κύρια και υψηλότερη κορυφή όπου βρίσκονται τα ερείπια των επιβλητικών αρχαίων και βυζαντινών τειχών (Κάστρο Φαρσάλων) είναι ο λόφος του Προφήτη Ηλία. Ο Λόφος της Αγίας Παρασκευής / Βαρούσι είναι μία παρακείμενη, χαμηλότερη αλλά εξίσου σημαντική, επίμηκης λοφοσειρά, η οποία αποτελούσε τον προϊστορικό πυρήνα και τον ευρύτερο οχυρωμένο χώρο της αρχαίας πόλης. Οι ονομασίες «Πέτρα» και «Σούμπιλο» υποδεικνύουν αυτές τις δύο εξέχουσες υψομετρικές θέσεις (κορυφές ή λόφους) που δεσπόζουν στρατηγικά στο πέρασμα και τον κάμπο των Φαρσάλων." 
+                                },
+                                { title: "Οικονομία", content: "Γεωργία (σίτος, κριθάρι), κτηνοτροφία (πρόβατα, αγελάδες)" },
+                                { title: "Κοινωνία", content: "Οργανωμένες οικογενειακές κοινότητες με απλή κοινωνική διάρθρωση" }
+                            ]
                         }
                     },
                     {
@@ -737,20 +523,16 @@
                 id: 2,
                 title: "Εποχή του Χαλκού",
                 years: "3200-1100 π.Χ.",
-                icon: "⚒️",
-                iconClass: "icon-bronze",
                 pages: [
                     {
                         type: "overview",
                         content: {
                             description: "Η Εποχή του Χαλκού φέρνει ριζικές αλλαγές με την ανάπτυξη της μεταλλουργίας. Ο οικισμός της Πέτρας γίνεται σημαντικό εμπορικό κέντρο, διατηρώντας σχέσεις με τον Μινωικό πολιτισμό της Κρήτης.",
                             facts: [
-                                { title: "🏙️ Αστική Ανάπτυξη", content: "Οικισμοί με λιθόστρωτους δρόμους και οργανωμένο αστικό σχεδιασμό" },
-                                { title: "🚢 Εμπόριο", content: "Εισαγωγή Μινωικής κεραμικής από Κρήτη - εκτεταμένα εμπορικά δικτύα" },
-                                { title: "👑 Κοινωνική Ιεραρχία", content: "Πλούσιες ταφές με χρυσά σκουλαρίκια και μεταλλικά αγγεία" }
-                            ],
-                            map: "Εποχή Χαλκού - Εμπορικά Δίκτυα",
-                            images: ["Χρυσά Σκουλαρίκια", "Μινωική Κεραμική", "Μεταλλικά Αγγεία"]
+                                { title: "Αστική Ανάπτυξη", content: "Οικισμοί με λιθόστρωτους δρόμους και οργανωμένο αστικό σχεδιασμό" },
+                                { title: "Εμπόριο", content: "Εισαγωγή Μινωικής κεραμικής από Κρήτη - εκτεταμένα εμπορικά δικτύα" },
+                                { title: "Κοινωνική Ιεραρχία", content: "Πλούσιες ταφές με χρυσά σκουλαρίκια και μεταλλικά αγγεία" }
+                            ]
                         }
                     },
                     {
@@ -779,20 +561,15 @@
                 id: 3,
                 title: "Μυκηναϊκή Περίοδος",
                 years: "1600-1100 π.Χ.",
-                icon: "⚔️",
-                iconClass: "icon-mycenaean",
                 pages: [
                     {
                         type: "overview",
                         content: {
-                            description: "Στην Μυκηναϊκή περίοδο, οι Φάρσαλοι αναδεικνύονται σε σημαντικό πολιτισμικό και στρατιωτικό κέντρο. Η περιοχή ταυτίζεται με το βασίλειο των Μυρμιδόνων και τον ήρωα Αχιλλέα από την Ιλιάδα.",
+                            description: "Στην Μυκηναϊκή περίοδο, τα Φάρσαλα αναδεικνύονται σε σημαντικό πολιτισμικό και στρατιωτικό κέντρο. Η περιοχή ταυτίζεται με το βασίλειο των Μυρμιδόνων και τον ήρωα Αχιλλέα από την Ιλιάδα.",
                             facts: [
-                                { title: "🏰 Ακρόπολη", content: "Ισχυρή οχύρωση με κυκλικό πύργο - χαρακτηριστικό των Μυκηναϊκών ακροπόλεων" },
-                                { title: "⚰️ Αριστοκρατία", content: "Θολωτοί τάφοι στην περιοχή Καζαμπεδί μαρτυρούν ισχυρή αριστοκρατία" },
-                                { title: "📖 Μυθολογία", content: "Πατρίδα του Αχιλλέα - βασίλειο των Μυρμιδόνων στην Ιλιάδα" }
-                            ],
-                            map: "Μυκηναϊκή Ακρόπολη Φαρσάλων",
-                            images: ["Κυκλικός Πύργος", "Θολωτός Τάφος", "Μυκηναϊκή Κεραμική"]
+                                { title: "Ακρόπολη", content: "Ισχυρή οχύρωση με κυκλικό πύργο - χαρακτηριστικό των Μυκηναϊκών ακροπόλεων" },
+                                { title: "Μυθολογία", content: "Πατρίδα του Αχιλλέα - βασίλειο των Μυρμιδόνων στην Ιλιάδα" }
+                            ]
                         }
                     },
                     {
@@ -805,7 +582,7 @@
                             ],
                             archaeologicalFinds: [
                                 "Κυκλικός πύργος και τείχη ακρόπολης",
-                                "Θολωτός τάφος στο Καζαμπεδί με πλούσια κτερίσματα",
+                                "Θολωτός τάφος με πλούσια κτερίσματα",
                                 "Μυκηναϊκή κεραμική και εγχειρίδια"
                             ],
                             culturalAspects: [
@@ -821,20 +598,19 @@
                 id: 4,
                 title: "Γεωμετρική & Αρχαϊκή",
                 years: "1100-500 π.Χ.",
-                icon: "🏺",
-                iconClass: "icon-archaic",
                 pages: [
                     {
                         type: "overview",
                         content: {
                             description: "Μετά την πτώση των Μυκηναίων, η περιοχή περνάει αναδιάρθρωση πριν αναδειχθεί ως σημαντικό μέλος του Θεσσαλικού Κοινού. Το ιερό της Αθηνάς Ιτωνίας γίνεται πανθεσσαλικό θρησκευτικό κέντρο.",
                             facts: [
-                                { title: "🏛️ Πολιτική Οργάνωση", content: "Ισχυρό μέλος του Θεσσαλικού Κοινού - ομοσπονδίας πόλεων" },
-                                { title: "⛪ Θρησκευτικό Κέντρο", content: "Ιερό Αθηνάς Ιτωνίας στο Ιτώνιον - πανθεσσαλικό λατρευτικό κέντρο" },
-                                { title: "🌾 Οικονομία", content: "Σιτοβολώνας της Θεσσαλίας, εκτροφή αλόγων, ανάπτυξη εμπορίου" }
-                            ],
-                            map: "Θεσσαλική Συνομοσπονδία",
-                            images: ["Ιερό Ιτώνιον", "Γεωμετρική Κεραμική", "Θεσσαλικό Κοινό"]
+                                { title: "Πολιτική Οργάνωση", content: "Ισχυρό μέλος του Θεσσαλικού Κοινού - ομοσπονδίας πόλεων" },
+                                { 
+                                    title: "Θρησκευτικό Κέντρο", 
+                                    content: "Ιερό Αθηνάς Ιτωνίας στο Ιτώνιον - πανθεσσαλικό λατρευτικό κέντρο. Η Αθηνά Ιτωνία ήταν μια αρχαία ελληνική θεότητα, μια ειδική μορφή της θεάς Αθηνάς, η οποία λατρευόταν ιδιαίτερα στη Θεσσαλία και σε άλλες περιοχές της Ελλάδας, όπως η Βοιωτία. Η επωνυμία της, 'Ιτωνία', προερχόταν από την αρχαία πόλη Ίτων (ή Ιτωνία) στη Θεσσαλία, κοντά στην σημερινή Καρδίτσα." 
+                                },
+                                { title: "Οικονομία", content: "Σιτοβολώνας της Θεσσαλίας, εκτροφή αλόγων, ανάπτυξη εμπορίου" }
+                            ]
                         }
                     },
                     {
@@ -863,29 +639,25 @@
                 id: 5,
                 title: "Κλασική Εποχή",
                 years: "500-336 π.Χ.",
-                icon: "🏛️",
-                iconClass: "icon-classical",
                 pages: [
                     {
                         type: "overview",
                         content: {
-                            description: "Στην Κλασική εποχή, οι Φάρσαλοι βρίσκονται στο επίκεντρο πολιτικών συγκρούσεων μεταξύ Αθήνας και Σπάρτης. Παρά τις εξωτερικές πιέσεις, η πόλη γνώρισε οικονομική ακμή με βάση τη γεωργία και την παραγωγή κεραμικής.",
+                            description: "Στην Κλασική εποχή, τα Φάρσαλα βρίσκονται στο επίκεντρο πολιτικών συγκρούσεων μεταξύ Αθήνας και Σπάρτης. Παρά τις εξωτερικές πιέσεις, η πόλη γνώρισε οικονομική ακμή με βάση τη γεωργία και την παραγωγή κεραμικής.",
                             facts: [
-                                { title: "🤝 Πολιτικές Συμμαχίες", content: "Σύγκρουση Αθήνας-Σπάρτης - επίκεντρο Μακεδονικών συγκρούσεων" },
-                                { title: "⚖️ Εσωτερικές Διαιρέσεις", content: "Δημοκρατικοί vs Αριστοκράτες - συνεχείς εσωτερικές αναταραχές" },
-                                { title: "💰 Οικονομία", content: "Σιτηρά, άλογα, κεραμική, ιδιόκοπτα νομίσματα" }
-                            ],
-                            map: "Κλασικοί Φάρσαλοι - Πολιτικές Συμμαχίες",
-                            images: ["Νόμισμα Φαρσάλων", "Θεσσαλικός Ιππέας", "Κλασική Κεραμική"]
+                                { title: "Πολιτικές Συμμαχίες", content: "Σύγκρουση Αθήνας-Σπάρτης - επίκεντρο Μακεδονικών συγκρούσεων" },
+                                { title: "Εσωτερικές Διαιρέσεις", content: "Δημοκρατικοί vs Αριστοκράτες - συνεχείς εσωτερικές αναταραχές" },
+                                { title: "Οικονομία", content: "Σιτηρά, άλογα, κεραμική, ιδιόκοπτα νομίσματα" }
+                            ]
                         }
                     },
                     {
                         type: "details",
                         content: {
                             interestingFacts: [
-                                "Οι Φάρσαλοι έκοβαν δικό τους νόμισμα, σημάδι οικονομικής ανεξαρτησίας",
+                                "Τα Φάρσαλα έκοβαν δικό τους νόμισμα, σημάδι οικονομικής ανεξαρτησίας",
                                 "Η πόλη ήταν θέατρο συχνών επεμβάσεων από Αθηναίους και Σπαρτιάτες",
-                                "Ο Αρμονίος, δημοκρατικός ηγέτης, πήρε τον έλεγχο της πόλης γύρω στο 400 π.Χ."
+                                "Ο Αρμονίδας, δημοκρατικός ηγέτης, πήρε τον έλεγχο της πόλης γύρω στο 400 π.Χ. Ο Αρμονίδας είναι γνωστός κυρίως από τις αναφορές του αρχαίου ιστορικού Ξενοφώντα, ο οποίος στην «Ελληνική Ιστορία» του περιγράφει την πολιτική κατάσταση στη Θεσσαλία κατά την περίοδο αυτή."
                             ],
                             archaeologicalFinds: [
                                 "Αργυρά νομίσματα με απεικονίσεις Αθηνάς και αλόγων",
@@ -905,20 +677,16 @@
                 id: 6,
                 title: "Ελληνιστική & Ρωμαϊκή",
                 years: "336 π.Χ.-330 μ.Χ.",
-                icon: "🏺",
-                iconClass: "icon-hellenistic",
                 pages: [
                     {
                         type: "overview",
                         content: {
-                            description: "Η περίοδος αυτή σημαδεύτηκε από τη σημαντική Μάχη των Φαρσάλων το 48 π.Χ., όπου ο Ιούλιος Καίσαρας νίκησε τον Πομπήιο. Οι Φάρσαλοι ενσωματώθηκαν στη Ρωμαϊκή Αυτοκρατορία, διατηρώντας τον ελληνικό πολιτισμικό χαρακτήρα.",
+                            description: "Η περίοδος αυτή σημαδεύτηκε από τη σημαντική Μάχη των Φαρσάλων το 48 π.Χ., όπου ο Ιούλιος Καίσαρας νίκησε τον Πομπήιο. Τα Φάρσαλα ενσωματώθηκαν στη Ρωμαϊκή Αυτοκρατορία, διατηρώντας τον ελληνικό πολιτισμικό χαρακτήρα.",
                             facts: [
-                                { title: "⚔️ Μάχη Φαρσάλων", content: "48 π.Χ. - Νίκη Ιουλίου Καίσαρα επί Πομπήιου, γεγονός που άλλαξε τη ρωμαϊκή ιστορία" },
-                                { title: "🏗️ Αστική Ανάπτυξη", content: "Θέατρο, Λουτρά, Δημόσια Κτήρια - ρωμαϊκή αρχιτεκτονική" },
-                                { title: "🌍 Οικονομία", content: "Ενσωμάτωση σε ρωμαϊκό εμπορικό δίκτυο, εξαγωγή αγροτικών προϊόντων" }
-                            ],
-                            map: "Ρωμαϊκή Θεσσαλία - Μάχη Φαρσάλων",
-                            images: ["Ρωμαϊκό Θέατρο", "Μάχη Φαρσάλων", "Ρωμαϊκά Λουτρά"]
+                                { title: "Μάχη Φαρσάλων", content: "48 π.Χ. - Νίκη Ιουλίου Καίσαρα επί Πομπήιου, γεγονός που άλλαξε τη ρωμαϊκή ιστορία" },
+                                { title: "Αστική Ανάπτυξη", content: "Θέατρο, Λουτρά, Δημόσια Κτήρια - ρωμαϊκή αρχιτεκτονική" },
+                                { title: "Οικονομία", content: "Ενσωμάτωση σε ρωμαϊκό εμπορικό δίκτυο, εξαγωγή αγροτικών προϊόντων" }
+                            ]
                         }
                     },
                     {
@@ -947,32 +715,26 @@
                 id: 7,
                 title: "Βυζαντινή Περίοδος",
                 years: "330-1393 μ.Χ.",
-                icon: "⛪",
-                iconClass: "icon-byzantine",
                 pages: [
                     {
                         type: "overview",
                         content: {
-                            description: "Στη Βυζαντινή περίοδο, οι Φάρσαλοι αποτέλεσαν σημαντική επισκοπική έδρα και θρησκευτικό κέντρο. Χτίστηκαν μεγαλοπρεπείς παλαιοχριστιανικές βασιλικές, ενώ η πόλη οχυρώθηκε ενάντια στις συνεχείς απειλές.",
+                            description: "Στη Βυζαντινή περίοδο, τα Φάρσαλα αποτέλεσαν σημαντική επισκοπική έδρα και θρησκευτικό κέντρο. Χτίστηκαν μεγαλοπρεπείς παλαιοχριστιανικές βασιλικές, ενώ η πόλη οχυρώθηκε ενάντια στις συνεχείς απειλές.",
                             facts: [
-                                { title: "✝️ Εκκλησιαστική Οργάνωση", content: "Επισκοπή Φαρσάλων - σημαντικό θρησκευτικό κέντρο της περιοχής" },
-                                { title: "🏛️ Αρχιτεκτονική", content: "Παλαιοχριστιανικές βασιλικές με ψηφιδωτά και μαρμάρινη διακόσμηση" },
-                                { title: "🛡️ Οχυρώσεις", content: "Ενίσχυση τειχών για προστασία από εισβολείς - ανακατασκευή ακρόπολης" }
-                            ],
-                            map: "Βυζαντινοί Φάρσαλοι - Επισκοπική Έδρα",
-                            images: ["Βασιλική Αγ. Αθανασίου", "Βυζαντινά Ψηφιδωτά", "Βυζαντινός Οικισμός"]
+                                { title: "Εκκλησιαστική Οργάνωση", content: "Επισκοπή Φαρσάλων - σημαντικό θρησκευτικό κέντρο της περιοχής" },
+                                { title: "Αρχιτεκτονική", content: "Παλαιοχριστιανικές βασιλικές με ψηφιδωτά και μαρμάρινη διακόσμηση" },
+                                { title: "Οχυρώσεις", content: "Ενίσχυση τειχών για προστασία από εισβολείς - ανακατασκευή ακρόπολης" }
+                            ]
                         }
                     },
                     {
                         type: "details",
                         content: {
                             interestingFacts: [
-                                "Η Βασιλική του Αγίου Αθανασίου ήταν μια από τις μεγαλύτερες στη Θεσσαλία",
-                                "Οι Φάρσαλοι συμμετείχαν στις Οικουμενικές Συνόδους της Χριστιανικής Εκκλησίας",
+                                "Τα Φάρσαλα συμμετείχαν στις Οικουμενικές Συνόδους της Χριστιανικής Εκκλησίας",
                                 "Η πόλη αντιστάθηκε σε πολλές πολιορκίες χάρη στα ισχυρά της τείχη"
                             ],
                             archaeologicalFinds: [
-                                "Βασιλική Αγίου Αθανασίου με ψηφιδωτά δάπεδα",
                                 "Βυζαντινά τείχη και πύργους οχύρωσης",
                                 "Λειψανοθήκες και θρησκευτικά αντικείμενα"
                             ],
@@ -989,27 +751,23 @@
                 id: 8,
                 title: "Τουρκοκρατία",
                 years: "1393-1881",
-                icon: "🕌",
-                iconClass: "icon-ottoman",
                 pages: [
                     {
                         type: "overview",
                         content: {
-                            description: "Κατά την Τουρκοκρατία, οι Φάρσαλοι υπέστησαν σημαντικές αλλαγές στην κοινωνική και οικονομική δομή. Η γη οργανώθηκε σε τσιφλίκια, με τους ντόπιους αγρότες να εργάζονται ως δουλοπάροικοι.",
+                            description: "Κατά την Τουρκοκρατία, τα Φάρσαλα υπέστησαν σημαντικές αλλαγές στην κοινωνική και οικονομική δομή. Η γη οργανώθηκε σε τσιφλίκια, με τους ντόπιους αγρότες να εργάζονται ως δουλοπάροικοι.",
                             facts: [
-                                { title: "🏘️ Οικονομική Δομή", content: "Τσιфλίκια με δουλοπάροικους - μεγάλες γαιοκτησίες υπό Τούρκων αγάδων" },
-                                { title: "💰 Φορολογία", content: "Δεκάτη, χαράτσι, βαρείς φόροι - οικονομική καταπίεση του πληθυσμού" },
-                                { title: "⚔️ Αντίσταση", content: "Κλέφτες, Αρματολοί, Κρυφό Σχολειό - μορφές οργανωμένης αντίστασης" }
-                            ],
-                            map: "Οθωμανική Θεσσαλία - Διοικητική Δομή",
-                            images: ["Οθωμανικό Κάστρο", "Τσιφλίκι", "Κλέφτες Αρματολοί"]
+                                { title: "Οικονομική Δομή", content: "Τσιфλίкια με δουλοπάροικους - μεγάλες γαιοκτησίες υπό Τούρκων αγάδων" },
+                                { title: "Φορολογία", content: "Δεκάτη, χαράτσι, βαρείς φόροι - οικονομική καταπίεση του πληθυσμού" },
+                                { title: "Αντίσταση", content: "Κλέφτες, Αρματολοί, Κρυφό Σχολειό - μορφές οργανωμένης αντίστασης" }
+                            ]
                         }
                     },
                     {
                         type: "details",
                         content: {
                             interestingFacts: [
-                                "Οι Φάρσαλοι ήταν διοικητικό κέντρο (κάζα) του σαντζακίου της Τρίκκης",
+                                "Τα Φάρσαλα ήταν διοικητικό κέντρο (κάζα) του σαντζακίου της Τρίκκης",
                                 "Πολλοί τοπικοί προκρίτες συνεργάστηκαν με τις οθωμανικές αρχές",
                                 "Η περιοχή του Οθρυός ήταν κλασικό πεδίο δράσης των κλεφτών"
                             ],
@@ -1031,32 +789,28 @@
                 id: 9,
                 title: "Σύγχρονη Εποχή",
                 years: "1881-Σήμερα",
-                icon: "🏙️",
-                iconClass: "icon-modern",
                 pages: [
                     {
                         type: "overview",
                         content: {
                             description: "Η απελευθέρωση των Φαρσάλων το 1881 σηματοδοτεί την έναρξη της σύγχρονης περιόδου. Η πόλη αναπτύχθηκε ταχύτατα, απορροφώντας πρόσφυγες και αναπτύσσοντας νέες οικονομικές δραστηριότητες.",
                             facts: [
-                                { title: "🎉 Απελευθέρωση", content: "1881 - Ένταξη στην Ελλάδα μετά τη Σύμβαση της Κωνσταντινούπολης" },
-                                { title: "👥 Πληθυσμός", content: "Από 3,000 (1881) σε 9,500 (2021) - σταθερή ανάπτυξη με προσφυγικές εγκαταστάσεις" },
-                                { title: "🏭 Οικονομία", content: "Σύγχρονη γεωργία, βιομηχανία, τουρισμός - διαφοροποίηση δραστηριοτήτων" }
-                            ],
-                            map: "Σύγχρονος Δήμος Φαρσάλων",
-                            images: ["Σύγχρονοι Φάρσαλοι", "Μουσείο Φαρσάλων", "Πολιτιστικές Εκδηλώσεις"]
+                                { title: "Απελευθέρωση", content: "1881 - Ένταξη στην Ελλάδα μετά τη Σύμβαση της Κωνσταντινούπολης" },
+                                { title: "Πληθυσμός", content: "Από 3,000 (1881) σε 9,500 (2021) - σταθερή ανάπτυξη με προσφυγικές εγκαταστάσεις" },
+                                { title: "Οικονομία", content: "Σύγχρονη γεωργία, βιομηχανία, τουρισμός - διαφοροποίηση δραστηριοτήτων" }
+                            ]
                         }
                     },
                     {
                         type: "details",
                         content: {
                             interestingFacts: [
-                                "Οι Φάρσαλοι ήταν από τις πρώτες περιοχές της Θεσσαλίας που ενσωματώθηκαν στο ελληνικό κράτος",
-                                "Το Μουσείο Φαρσάλων ιδρύθηκε για να προστατεύσει και να προβάλλει την πλούσια ιστορία",
+                                "Τα Φάρσαλα ήταν από τις πρώτες περιοχές της Θεσσαλίας που ενσωματώθηκαν στο ελληνικό κράτος",
+                                "Η Αρχαιολογική Συλλογή Φαρσάλων ιδρύθηκε για να προστατεύσει και να προβάλλει την πλούσια ιστορία",
                                 "Η πόλη δέχτηκε σημαντικό αριθμό προσφύγων μετά τη Μικρασιατική Καταστροφή"
                             ],
                             archaeologicalFinds: [
-                                "Σύγχρονο Μουσείο Φαρσάλων με πλούσια συλλογή",
+                                "Σύγχρονη Αρχαιολογική Συλλογή Φαρσάλων με πολλά εκθέματα",
                                 "Αναστηλωμένοι αρχαιολογικοί χώροι",
                                 "Ψηφιακά αρχεία και διαδραστικές εγκαταστάσεις"
                             ],
@@ -1078,6 +832,7 @@
         // Initialize the application
         function init() {
             createPeriodSlides();
+            createThankYouSlide();
             setupEventListeners();
             updateNavigation();
             updateProgressBar();
@@ -1100,20 +855,8 @@
                     if (page.type === "overview") {
                         slideContent = `
                             <div class="header">
-                                <span class="period-icon ${period.iconClass}">${period.icon}</span>
                                 <h1>${period.title}</h1>
                                 <p>${period.years}</p>
-                            </div>
-                            
-                            <div class="timeline-container">
-                                <div class="timeline" id="timeline">
-                                    ${historicalPeriods.map((p, i) => `
-                                        <div class="period ${i === periodIndex ? 'active' : ''}" data-period="${i}" data-page="0">
-                                            <div class="period-year">${p.years}</div>
-                                            <div class="period-title">${p.title}</div>
-                                        </div>
-                                    `).join('')}
-                                </div>
                             </div>
 
                             <div class="main-content">
@@ -1122,7 +865,7 @@
                                     <div class="page-content">
                                         <div class="info-grid">
                                             <div class="info-card" style="grid-column: 1 / -1;">
-                                                <h3>📖 Περιγραφή</h3>
+                                                <h3>Περιγραφή</h3>
                                                 <p>${page.content.description}</p>
                                             </div>
                                             ${page.content.facts.map(fact => `
@@ -1134,39 +877,13 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="visual-section">
-                                    <h2>🗺️ Χάρτες & Εικόνες</h2>
-                                    <div class="map-container">
-                                        ${page.content.map}
-                                    </div>
-                                    <div class="image-gallery">
-                                        ${page.content.images.map(image => `
-                                            <div class="gallery-item">
-                                                ${image}
-                                            </div>
-                                        `).join('')}
-                                    </div>
-                                </div>
                             </div>
                         `;
                     } else {
                         slideContent = `
                             <div class="header">
-                                <span class="period-icon ${period.iconClass}">${period.icon}</span>
                                 <h1>${period.title} - Λεπτομέρειες</h1>
                                 <p>${period.years}</p>
-                            </div>
-                            
-                            <div class="timeline-container">
-                                <div class="timeline" id="timeline">
-                                    ${historicalPeriods.map((p, i) => `
-                                        <div class="period ${i === periodIndex ? 'active' : ''}" data-period="${i}" data-page="0">
-                                            <div class="period-year">${p.years}</div>
-                                            <div class="period-title">${p.title}</div>
-                                        </div>
-                                    `).join('')}
-                                </div>
                             </div>
 
                             <div class="main-content">
@@ -1174,35 +891,25 @@
                                     <h2>Περισσότερες Πληροφορίες</h2>
                                     <div class="page-content">
                                         <div class="info-section">
-                                            <h3>💡 Ενδιαφέροντα Γεγονότα</h3>
+                                            <h3>Ενδιαφέροντα Γεγονότα</h3>
                                             <ul>
                                                 ${page.content.interestingFacts.map(fact => `<li>${fact}</li>`).join('')}
                                             </ul>
                                         </div>
 
                                         <div class="info-section">
-                                            <h3>🏺 Αρχαιολογικά Ευρήματα</h3>
+                                            <h3>Αρχαιολογικά Ευρήματα</h3>
                                             <ul>
                                                 ${page.content.archaeologicalFinds.map(item => `<li>${item}</li>`).join('')}
                                             </ul>
                                         </div>
 
                                         <div class="info-section">
-                                            <h3>🎭 Πολιτισμικά Στοιχεία</h3>
+                                            <h3>Πολιτισμικά Στοιχεία</h3>
                                             <ul>
                                                 ${page.content.culturalAspects.map(aspect => `<li>${aspect}</li>`).join('')}
                                             </ul>
                                         </div>
-                                    </div>
-                                </div>
-
-                                <div class="visual-section">
-                                    <h2>Συμπληρωματικό Υλικό</h2>
-                                    <div class="map-container">
-                                        Επιπλέον Χαρτογραφήσεις
-                                    </div>
-                                    <div style="text-align: center; padding: 1rem;">
-                                        <p>Η σελίδα αυτή παρέχει επιπλέον λεπτομέρειες για την ${period.title}</p>
                                     </div>
                                 </div>
                             </div>
@@ -1216,7 +923,35 @@
             });
 
             totalSlides = slideCount;
-            updateSlideCounter();
+        }
+
+        // Create thank you slide
+        function createThankYouSlide() {
+            const slidesContainer = document.querySelector('.slides-container');
+            const slide = document.createElement('div');
+            slide.className = 'slide';
+            slide.id = 'slide-thankyou';
+            
+            slide.innerHTML = `
+                <div class="header">
+                    <h1>Φάρσαλα: 7,000 Χρόνια Ιστορίας</h1>
+                    <p>Τέλος παρουσίασης</p>
+                </div>
+
+                <div class="thank-you-slide">
+                    <h2>Σε ευχαριστούμε που παρακολούθησες αυτή την παρουσίαση</h2>
+                    <p>Ελπίζουμε να μάθατε περισσότερα για την πλούσια ιστορία των Φαρσάλων</p>
+                    <button class="restart-btn" id="restart-btn">Θέλεις να ξαναδείς την παρουσίαση;</button>
+                </div>
+            `;
+            
+            slidesContainer.appendChild(slide);
+            totalSlides++;
+            
+            // Add event listener for restart button
+            document.getElementById('restart-btn').addEventListener('click', () => {
+                showSlide(0);
+            });
         }
 
         // Show specific slide
@@ -1274,17 +1009,6 @@
             // Home button
             document.getElementById('home-btn').addEventListener('click', () => {
                 showSlide(0);
-            });
-
-            // Timeline period clicks
-            document.addEventListener('click', (e) => {
-                if (e.target.closest('.period')) {
-                    const periodIndex = parseInt(e.target.closest('.period').dataset.period);
-                    // Calculate the slide index for the first page of this period
-                    // Each period has 2 pages + 1 for intro
-                    const slideIndex = 1 + (periodIndex * 2);
-                    showSlide(slideIndex);
-                }
             });
 
             // Modal functionality
